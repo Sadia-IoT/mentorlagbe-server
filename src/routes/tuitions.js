@@ -281,14 +281,34 @@ router.get(
     const id = parseId(req, res);
     if (!id) return;
 
-    const { tuitions, users } = collections();
+    const { tuitions, users, applications } = collections();
     const tuition = await tuitions.findOne({ _id: id, ...PUBLIC_FILTER });
     if (!tuition) return res.status(404).json({ message: "Tuition not found" });
 
-    const tutor = await users.findOne(
-      { email: tuition.tutorEmail },
-      { projection: { name: 1, image: 1, bio: 1, plan: 1 } }
-    );
+    const [tutor, reviewDocs] = await Promise.all([
+      users.findOne(
+        { email: tuition.tutorEmail },
+        { projection: { name: 1, image: 1, bio: 1, plan: 1, createdAt: 1 } }
+      ),
+      applications
+        .find(
+          { tuitionId: id, "review.rating": { $exists: true } },
+          { projection: { review: 1 } }
+        )
+        .sort({ "review.reviewedAt": -1 })
+        .limit(8)
+        .toArray(),
+    ]);
+
+    const reviews = reviewDocs.map((item) => item.review);
+    const ratingAverage = reviews.length
+      ? Number(
+          (
+            reviews.reduce((sum, review) => sum + review.rating, 0) /
+            reviews.length
+          ).toFixed(1)
+        )
+      : 0;
 
     res.json({
       ...tuition,
@@ -298,8 +318,12 @@ router.get(
             image: tutor.image || "",
             bio: tutor.bio || "",
             isPro: tutor.plan === "pro",
+            memberSince: tutor.createdAt || null,
           }
         : null,
+      reviews,
+      ratingAverage,
+      reviewCount: reviews.length,
     });
   })
 );
