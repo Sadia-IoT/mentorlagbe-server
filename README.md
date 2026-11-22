@@ -25,7 +25,7 @@ the client's JWKS endpoint.
 | Database | MongoDB Atlas (`mongodb` driver, no ODM) |
 | Auth | Better Auth JWT verified with `jose` + remote JWKS |
 | Payments | Stripe Checkout + Webhook |
-| Media | ImgBB API (server-side proxy upload) |
+| Media | Cloudinary unsigned upload (ImgBB fallback), server-side proxy |
 | Deployment | Vercel (`vercel.json`, serverless handler) |
 
 ## Collections (logical design)
@@ -50,7 +50,7 @@ the client's JWKS endpoint.
 - Tutor accepts/rejects applicants; accepted students can leave a **1–5 star review**
 - **Bookmarks** for students (Free: 5, Pro: unlimited)
 - **Stripe Checkout** for Pro Tutor ($15) / Pro Student ($10) + webhook + session verify
-- **ImgBB upload proxy** so the API key never reaches the browser
+- **Cloudinary upload proxy** (ImgBB fallback) so provider credentials never reach the browser
 - Admin user management, tuition moderation and transaction reports
 - Dashboard statistics endpoints for student / tutor / admin
 - Central error handler, CORS allow-list, health check, 404 JSON
@@ -104,7 +104,8 @@ MONGODB_URI=mongodb+srv://...
 DB_NAME=mentorlagbe
 STRIPE_SECRET_KEY=sk_test_...
 STRIPE_WEBHOOK_SECRET=whsec_...
-IMGBB_API_KEY=...
+CLOUDINARY_CLOUD_NAME=...
+CLOUDINARY_UPLOAD_PRESET=...
 BETTER_AUTH_URL=http://localhost:3000
 ```
 
