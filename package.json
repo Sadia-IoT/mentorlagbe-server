@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "dev": "nodemon src/index.js",
-    "start": "node src/index.js"
+    "start": "node src/index.js",
+    "smoke": "node scripts/smoke.mjs"
   },
   "dependencies": {
     "cors": "^2.8.5",
@@ -14,6 +15,7 @@
     "express": "^4.21.2",
     "jose": "^5.9.6",
     "mongodb": "^6.12.0",
+    "multer": "^2.5.0",
     "stripe": "^17.5.0"
   },
   "devDependencies": {
