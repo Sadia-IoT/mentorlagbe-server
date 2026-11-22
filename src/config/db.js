@@ -17,7 +17,7 @@ export async function connectDB() {
   client = new MongoClient(process.env.MONGODB_URI, {
     serverApi: {
       version: ServerApiVersion.v1,
-      strict: true,
+      strict: false,
       deprecationErrors: true,
     },
   });

@@ -3,6 +3,7 @@ import express from "express";
 import cors from "cors";
 import { connectDB } from "./config/db.js";
 import userRoutes from "./routes/users.js";
+import tuitionRoutes from "./routes/tuitions.js";
 
 const app = express();
 
@@ -42,7 +43,7 @@ app.get("/", (req, res) => {
 
 // Routes
 app.use("/users", userRoutes);
-// app.use("/tuitions", tuitionRoutes);
+app.use("/tuitions", tuitionRoutes);
 // app.use("/applications", applicationRoutes);
 
 // 404
