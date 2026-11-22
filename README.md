@@ -9,9 +9,10 @@ Next.js client. Authentication is handled by **Better Auth** on the client: ever
 protected request carries a Better Auth **JWT** which this server verifies against
 the client's JWKS endpoint.
 
-- **Live API:** `https://mentorlagbe-server.vercel.app`
-- **Client repo:** `https://github.com/<your-username>/mentorlagbe-client`
-- **Client live site:** `https://mentorlagbe-client.vercel.app`
+- **Live API:** `https://mentorlagbe-server-five.vercel.app`
+- **Client live site:** `https://mentorlagbe-client-cyan.vercel.app`
+- **Server repo:** `https://github.com/Sadia-IoT/mentorlagbe-server`
+- **Client repo:** `https://github.com/Sadia-IoT/mentorlagbe-client`
 
 ---
 
