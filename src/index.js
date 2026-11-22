@@ -2,6 +2,7 @@ import "dotenv/config";
 import express from "express";
 import cors from "cors";
 import { connectDB } from "./config/db.js";
+import userRoutes from "./routes/users.js";
 
 const app = express();
 
@@ -39,7 +40,8 @@ app.get("/", (req, res) => {
   res.json({ message: "MentorLagbe server is running" });
 });
 
-// Routes will be mounted here as we build them:
+// Routes
+app.use("/users", userRoutes);
 // app.use("/tuitions", tuitionRoutes);
 // app.use("/applications", applicationRoutes);
 
